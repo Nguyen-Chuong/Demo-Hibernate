@@ -2,10 +2,10 @@ package com.example.demo.services.serviceImpl;
 
 import com.example.demo.dto.CertificateDTO;
 import com.example.demo.dto.EmployeeDTO;
+import com.example.demo.entity.Employee;
 import com.example.demo.repository.CertificateRepository;
 import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.services.EmployeeService;
-import org.omg.CORBA.portable.ApplicationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +14,7 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+
     private final CertificateRepository certificateRepository;
 
     public EmployeeServiceImpl(EmployeeRepository employeeRepository, CertificateRepository certificateRepository) {
@@ -21,13 +22,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.certificateRepository = certificateRepository;
     }
 
-
     @Override
-    public EmployeeDTO getEmployeeById(Integer id) throws ApplicationException {
+    public EmployeeDTO getEmployeeById(Integer id) {
 //        Employee employee = employeeRepository.getEmployeeById(id);
         EmployeeDTO employee = employeeRepository.getCertificateByEmployee(id);
         List<CertificateDTO> certificateDTOList = certificateRepository.getListCertificateByEmployeeId(id);
         employee.setListCertificate(certificateDTOList);
         return employee;
     }
+
+    @Override
+    public void addNewEmployee(Employee employee) {
+        employeeRepository.save(employee);
+    }
+
 }

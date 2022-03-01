@@ -1,12 +1,17 @@
 package com.example.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -39,27 +44,8 @@ public class Employee implements Serializable {
     @Column(name = "employee_count")
     private int employee_count;
 
-    //    @PrimaryKeyJoinColumn
-//    @JoinColumn(name = "employee_id", nullable = false)
-
-    @OneToOne(cascade = CascadeType.ALL, optional = false, mappedBy = "employee")
-    private Fresher fresher;
-
-//    @OneToOne(fetch = FetchType.LAZY, mappedBy = "employee")
-//    @JoinColumn(name = "employee_id", nullable = false)
-//    private Experience experience;
-//
-//    @OneToOne(fetch = FetchType.LAZY, mappedBy = "employee")
-//    @JoinColumn(name = "employee_id", nullable = false)
-//    private Intern intern;
-
-    @OneToOne(mappedBy = "employee")
-    private Experience experience;
-
-    @OneToOne(mappedBy = "employee")
-    private Intern intern;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     @JsonIgnore
     private List<Certificate> certificates;
+
 }

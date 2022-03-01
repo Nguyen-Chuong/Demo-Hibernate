@@ -9,10 +9,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
+
     @Query("SELECT e FROM Employee e WHERE e.id = :id")
     Employee getEmployeeById(@Param("id") Integer id);
 
-    @Query("SELECT new com.example.demo.dto.EmployeeDTO(e.id, e.fullName, e.birthday, e.phone, e.email, e.employee_type, e.employee_count) FROM Employee e where e.id = :id")
+    @Query("SELECT new com.example.demo.dto.EmployeeDTO(e.id, e.fullName, e.birthday, e.phone, e.email, e.employee_type, e.employee_count)" +
+            " FROM Employee e where e.id = :id")
     EmployeeDTO getCertificateByEmployee(@Param("id") Integer id);
 
 }
