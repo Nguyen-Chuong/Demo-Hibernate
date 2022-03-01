@@ -14,33 +14,39 @@ public class Hibernate {
     public static void main(String[] args) {
 
         try {
+            // create new session to work w/ db
             Session session = Util.getSessionFactory().openSession();
+
             // Begin a unit of work
             session.beginTransaction();
 
             // Insert user
-            Employee employee = new Employee("hieu","2000", "0342217180", "hieu@gmail.com", "fresher", 1);
+            Employee employee = new Employee(1, "ntnc","none", "099999", "vjp@gmail.com", "none", 100 );
             session.save(employee);
+            session.flush();
 
             //update
-//            Employee uEmp = session.load(Employee.class, 1);
-//            uEmp.setEmail("hieuCT");
+//            Employee uEmp = session.load(Employee.class, 2);
+//            System.out.println(uEmp);
+//            uEmp.setEmail("pro");
 //            session.save(uEmp);
 
             //list
-            List<Employee> list = session.createCriteria(Employee.class).list();
-            System.out.println(list.toString());
-
-            //delete
-            Employee emp = session.load(Employee.class, 1);
-            session.delete(emp);
-
-            System.out.println(list.toString());
-            // Commit the current resource transaction, writing any unflushed changes to the database.
+//            List<Employee> list = session.createCriteria(Employee.class).list();
+//            System.out.println(list.toString());
+//
+//            //delete
+//            Employee emp = session.load(Employee.class, 1);
+//            session.delete(emp);
+//
+//            System.out.println(list.toString());
+//            // Commit the current resource transaction, writing any unflushed changes to the database.
             session.getTransaction().commit();
+
             session.close();
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
     }
+
 }
